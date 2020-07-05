@@ -35,12 +35,12 @@
 </template>
 
 <script>
-import { mapState, mapGetters } from 'vuex';
+import { mapState, mapGetters, mapActions } from "vuex";
 export default {
-  name: 'login-form',
+  name: "login-form",
   data() {
     return {
-      userId: '',
+      userId: "",
     };
   },
 
@@ -49,8 +49,19 @@ export default {
       const result = this.userId.length < 3;
       return result ? result : this.loading;
     },
-    ...mapState([]),
-    ...mapGetters([]),
+    ...mapState(["loading", "error"]),
+    ...mapGetters(["hasError"]),
+  },
+
+  methods: {
+    ...mapActions(["login", "test"]),
+
+    async onSubmit() {
+      const result = await this.login(this.userId);
+      if (result) {
+        this.$router.push("chat");
+      }
+    },
   },
 };
 </script>

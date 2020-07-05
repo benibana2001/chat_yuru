@@ -19,11 +19,18 @@
 </template>
 
 <script>
-import { mapState } from 'vuex';
+import { mapState, mapActions } from "vuex";
 export default {
-  name: 'RoomList',
+  name: "RoomList",
   computed: {
-    ...mapState(['rooms', 'activeRoom']),
+    ...mapState(["rooms", "activeRoom"]),
+  },
+
+  methods: {
+    ...mapActions(["changeRoom"]),
+    onChange(room) {
+      this.changeRoom(room.id);
+    },
   },
 };
 </script>
